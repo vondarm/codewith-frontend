@@ -1,5 +1,5 @@
 import axios from "axios";
-import {login} from "@/api/login";
+import {login} from "@/api/auth/login";
 
 type AuthResult = {
     type: "success",
@@ -10,7 +10,7 @@ type AuthResult = {
 
 export const register = async (email: string, password: string, displayName?: string): Promise<AuthResult> => {
     try {
-        await axios.post("api/auth/register/", {email, password, displayName});
+        await axios.post("api/auth/register", {email, password, displayName});
         return await login(email, password);
 
     } catch (e: any) {

@@ -1,11 +1,7 @@
-import type {Metadata} from "next";
-import {AntdRegistry} from '@ant-design/nextjs-registry';
-// import "./globals.css";
+"use client"
 
-export const metadata: Metadata = {
-    title: "CodeWith",
-    description: "",
-};
+import {AntdRegistry} from '@ant-design/nextjs-registry';
+import {EntitiesProvider} from "@/entities/entitiesProvider";
 
 export default function RootLayout({children}: Readonly<{
     children: React.ReactNode;
@@ -14,7 +10,9 @@ export default function RootLayout({children}: Readonly<{
         <html lang="en">
         <body>
         <AntdRegistry>
-            {children}
+            <EntitiesProvider>
+                {children}
+            </EntitiesProvider>
         </AntdRegistry>
         </body>
         </html>

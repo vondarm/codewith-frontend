@@ -9,12 +9,11 @@ type AuthResult = {
 
 export const login = async (email: string, password: string): Promise<AuthResult> => {
     try {
-        const res = await axios.post("api/auth/token/", {email, password});
-        const {accessToken, refreshToken, user: userData} = res.data;
+        const res = await axios.post("api/auth/token", {email, password});
+        const {access, refresh} = res.data;
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('accessToken', access);
+        localStorage.setItem('refreshToken', refresh);
 
         return {
             type: "success",

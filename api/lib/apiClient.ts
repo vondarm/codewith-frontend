@@ -1,5 +1,5 @@
 import axios from "axios"
-import {logout} from "@/api/logout";
+import {logout} from "@/api/auth/logout";
 
 const BASE_API_URL = "/api"
 
@@ -20,7 +20,7 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
-        const originalRequest = error.config;
+        const originalRequest = error.config
 
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
@@ -32,16 +32,16 @@ axiosInstance.interceptors.response.use(
             }
 
             try {
-                const res = await axios.post(`${BASE_API_URL}/auth/refresh`, {
-                    refreshToken,
+                const res = await axios.post(`${BASE_API_URL}/auth/token/refresh`, {
+                    refresh: refreshToken,
                 });
 
-                const {accessToken: newAccessToken, refreshToken: newRefreshToken} = res.data;
+                const {access, refresh} = res.data;
 
-                localStorage.setItem('accessToken', newAccessToken);
-                localStorage.setItem('refreshToken', newRefreshToken);
+                localStorage.setItem('accessToken', access);
+                localStorage.setItem('refreshToken', refresh);
 
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                originalRequest.headers.Authorization = `Bearer ${access}`;
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
                 logout()

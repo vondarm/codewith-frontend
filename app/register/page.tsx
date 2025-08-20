@@ -3,7 +3,8 @@
 import {Button, Card, Form, Input} from "antd";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {register} from "@/api/register";
+import {register} from "@/api/auth/register";
+import {ROUTES} from "@/app/routes";
 
 type FieldType = {
     email: string;
@@ -18,7 +19,7 @@ export default function Register() {
     const onFinish = async (values: FieldType) => {
         const res = await register(values.email, values.password)
         if (res.type === "success") {
-            push("/workspace")
+            push(ROUTES.WORKSPACE)
         } else {
             form.setFields([{name: "password", errors: [res.data.detail]}])
         }
@@ -66,6 +67,6 @@ export default function Register() {
                 </Button>
             </Form.Item>
         </Form>
-        <Link href={"/login"}>I have an account</Link>
+        <Link href={ROUTES.LOGIN}>I have an account</Link>
     </Card>
 }
