@@ -1,16 +1,17 @@
 "use client"
 
-import {FC, memo, PropsWithChildren, useEffect} from "react";
+import {PropsWithChildren, useEffect} from "react";
 import {useRouter} from "next/navigation";
+import {useMe} from "@/entities/me";
 import {ROUTES} from "@/app/routes";
 
-export const AuthRequired: FC<PropsWithChildren> = memo(function AuthRequired({children}) {
+export default function AuthRequired({children}: PropsWithChildren) {
     const {push} = useRouter()
+    const {error} = useMe()
 
     useEffect(() => {
-        if (!localStorage.getItem('accessToken'))
-            push(ROUTES.LOGIN)
-    }, [push])
+        if (error?.status === 401) push(ROUTES.LOGIN)
+    }, [error, push])
 
     return <>{children}</>
-})
+}

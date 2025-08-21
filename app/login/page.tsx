@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import Link from "next/link";
 import {login} from "@/api/auth/login";
 import {ROUTES} from "@/app/routes";
+import {useRevalidateMe} from "@/entities/me";
 
 type FieldType = {
     email: string;
@@ -13,11 +14,13 @@ type FieldType = {
 
 export default function Login() {
     const {push} = useRouter()
+    const revalidateMe = useRevalidateMe()
     const [form] = Form.useForm()
 
     const onFinish = async (values: FieldType) => {
         const res = await login(values.email, values.password)
         if (res.type === "success") {
+            await revalidateMe()
             push(ROUTES.WORKSPACE)
         } else {
             form.setFields([{name: "password", errors: [res.data.detail]}])

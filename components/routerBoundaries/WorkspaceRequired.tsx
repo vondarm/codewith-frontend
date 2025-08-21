@@ -1,18 +1,18 @@
 "use client"
 
-import {FC, memo, PropsWithChildren, useEffect} from "react";
+import {PropsWithChildren, useEffect} from "react";
 import {useMyWorkspaces} from "@/entities/workspaces";
 import {useRouter} from "next/navigation";
 import {ROUTES} from "@/app/routes";
 
-export const WorkspaceRequired: FC<PropsWithChildren> = memo(function AuthRequired({children}) {
+export default function WorkspaceRequired({children}: PropsWithChildren) {
     const {data: workspaces} = useMyWorkspaces()
     const {push} = useRouter()
 
     useEffect(() => {
         if (!workspaces.length)
-            push(ROUTES.WORKSPACE)
+            push(ROUTES.CREATE_WORKSPACE)
     }, [push, workspaces])
 
     return <>{children}</>
-})
+}
