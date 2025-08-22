@@ -5,5 +5,5 @@ export const ROUTES = {
     ROOM: '/room',
     LOGIN: '/login',
     REGISTER: '/register',
-    getWorkspaceRoute: (id: number) => `/workspace/${id}`,
+    getWorkspaceSettingsRoute: (id: number) => `/workspace/${id}/settings/workspace`,
 }

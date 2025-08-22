@@ -1,18 +1,22 @@
 "use client"
 
 import {PropsWithChildren, useEffect} from "react";
-import {useMyWorkspaces} from "@/entities/workspaces";
+import {useWorkspace} from "@/entities/workspaces";
 import {useRouter} from "next/navigation";
 import {ROUTES} from "@/app/routes";
+import {useLastWorkspaceId} from "@/entities/lastWorkspace";
+import {useWorkspaceIdParam} from "@/app/(authenticated)/(with_workspace)/workspace/[id]/useWorkspaceIdParam";
 
-export default function WorkspaceRequired({children}: PropsWithChildren) {
-    const {data: workspaces} = useMyWorkspaces()
+export default function WithWorkspace({children}: PropsWithChildren) {
+    const id = useWorkspaceIdParam()
     const {push} = useRouter()
+    const {setLastWorkspaceId} = useLastWorkspaceId()
+    const workspace = useWorkspace(Number(id))
 
     useEffect(() => {
-        if (!workspaces.length)
-            push(ROUTES.CREATE_WORKSPACE)
-    }, [push, workspaces])
+        if (!workspace) push(ROUTES.WORKSPACE)
+        else setLastWorkspaceId(id)
+    }, [id, setLastWorkspaceId, workspace, push])
 
     return <>{children}</>
 }

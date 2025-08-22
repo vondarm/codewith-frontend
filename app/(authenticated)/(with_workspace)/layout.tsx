@@ -2,11 +2,14 @@
 
 import {PropsWithChildren} from "react";
 import dynamic from "next/dynamic";
+import {SuspenseView} from "@/components/SuspenseView";
 
-const WorkspaceRequired = dynamic(() => import("@/components/routerBoundaries/WorkspaceRequired"), {ssr: false});
+const WorkspacesRequired = dynamic(() => import("@/components/routerBoundaries/WorkspacesRequired"), {ssr: false});
 
 export default function WithWorkspaceLayout({children}: PropsWithChildren) {
-    return <WorkspaceRequired>
-        {children}
-    </WorkspaceRequired>
+    return <SuspenseView>
+        <WorkspacesRequired>
+            {children}
+        </WorkspacesRequired>
+    </SuspenseView>
 }

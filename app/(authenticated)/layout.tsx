@@ -2,7 +2,7 @@
 
 import {PropsWithChildren} from "react";
 import {Content, Footer, Header} from "antd/lib/layout/layout";
-import {Space, Tag, theme} from "antd";
+import {Flex, Space, Tag, theme} from "antd";
 import {User} from "@/components/account/user";
 import dynamic from "next/dynamic";
 import {Workspace} from "@/components/account/workspace";
@@ -21,7 +21,7 @@ export default function AuthenticatedLayout({children}: PropsWithChildren) {
             </Space>
         </Header>
         <Content style={{padding: '48px', display: 'flex', flexDirection: "column"}}>
-            <div
+            <Flex
                 style={{
                     background: colorBgContainer,
                     flexGrow: 1,
@@ -30,7 +30,7 @@ export default function AuthenticatedLayout({children}: PropsWithChildren) {
                 }}
             >
                 {children}
-            </div>
+            </Flex>
         </Content>
         <Footer style={{textAlign: 'center'}}>
             CodeWith ©{new Date().getFullYear()} Created by Vondarm

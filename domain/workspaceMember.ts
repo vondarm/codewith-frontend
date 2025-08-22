@@ -1,6 +1,6 @@
 export interface WorkspaceMember {
     id: number
-    userId: string
+    email: string
     displayName: string
     role: "owner" | "editor" | "viewer"
 }

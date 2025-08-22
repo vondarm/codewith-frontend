@@ -17,10 +17,10 @@ export default function CreateWorkspace() {
 
     const onFinish = async (values: FieldType) => {
         const created = await WorkspaceApi.create(values.name)
-        push(ROUTES.getWorkspaceRoute(created.id))
+        push(ROUTES.getWorkspaceSettingsRoute(created.id))
         await revalidateWorkspaces()
     }
-    
+
     return <Card
         title="Create new workspace"
         variant="outlined"

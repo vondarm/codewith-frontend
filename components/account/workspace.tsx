@@ -27,7 +27,7 @@ export const Workspace = () => {
         if (key === CREATE_WORKSPACE_ACTION)
             push(ROUTES.CREATE_WORKSPACE)
         else
-            push(ROUTES.getWorkspaceRoute(key))
+            push(ROUTES.getWorkspaceSettingsRoute(key))
     }
 
     const items: MenuItem[] = [

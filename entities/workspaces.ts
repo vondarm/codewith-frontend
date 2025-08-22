@@ -10,7 +10,9 @@ export const useMyWorkspaces = () => useSuspenseQuery({
 })
 
 export const useWorkspace = (id: number) => {
-    return useMyWorkspaces().data.find(workspace => workspace.id === id)
+    const {data} = useMyWorkspaces()
+
+    return data.find(workspace => workspace.id === id)
 }
 
 export const useRevalidateWorkspaces = () => {
