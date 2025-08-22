@@ -1,15 +1,15 @@
 "use client"
 
-import {useParams} from "next/navigation";
 import dynamic from "next/dynamic";
 import {SuspenseView} from "@/components/SuspenseView";
+import {useWorkspaceIdParam} from "@/app/(authenticated)/(with_workspace)/workspace/[id]/useWorkspaceIdParam";
 
 const WorkspaceSettings = dynamic(() => import("./pageInner"))
 
 export default function Settings() {
-    const {id} = useParams()
+    const workspaceId = useWorkspaceIdParam()
 
     return <SuspenseView>
-        <WorkspaceSettings id={Number(id)}/>
+        <WorkspaceSettings id={workspaceId}/>
     </SuspenseView>
 }

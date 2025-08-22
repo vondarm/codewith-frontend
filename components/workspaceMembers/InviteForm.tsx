@@ -22,11 +22,9 @@ export const InviteForm: FC<Props> = ({workspaceId}) => {
 
     const onFinish = async ({email, role}: FieldType) => {
         const res = await WorkspaceMemberApi.invite(workspaceId, email, role)
-        console.log(res)
         if (res.type === "success") {
             await revalidateMembers()
         } else {
-            console.log(res)
             form.setFields([
                 {name: "email", errors: [...(res.data.email || []), ...(res.data.nonFieldErrors || [])]},
                 {name: "role", errors: res.data.role},

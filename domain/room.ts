@@ -1,6 +1,6 @@
 export interface Room {
     id: number
-    roomId: string
+    publicId: string
     name?: string
     environmentId: string
     description?: string
@@ -10,7 +10,7 @@ export interface Room {
 
 export interface PublicRoom {
     id: number
-    roomId: string
+    publicId: string
     name?: string
     environmentId: string
     description?: string

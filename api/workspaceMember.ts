@@ -2,18 +2,20 @@ import {axiosInstance} from "@/api/lib/apiClient";
 import {mapApiResponse, mapApiResponseWithErrors} from "@/api/lib/mapResponse";
 import {WorkspaceMember} from "@/domain/workspaceMember";
 
-const fetchMembers = async (workspaceId: string) => mapApiResponse<WorkspaceMember[]>(axiosInstance.get(
+const fetchMembers = async (workspaceId: number) => mapApiResponse<WorkspaceMember[]>(axiosInstance.get(
     "/workspace_member",
     {params: {workspaceId}}
 ))
 
+type Role = WorkspaceMember["role"]
+
 type InvitePayload = {
     email: string,
     workspaceId: number
-    role: WorkspaceMember["role"]
+    role: Role
 }
 
-const invite = async (workspaceId: string, email: string, role: Role) => mapApiResponseWithErrors<
+const invite = async (workspaceId: number, email: string, role: Role) => mapApiResponseWithErrors<
     WorkspaceMember,
     Record<(keyof InvitePayload) | "nonFieldErrors", string[]>
 >(axiosInstance.post(

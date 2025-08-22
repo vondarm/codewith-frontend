@@ -11,12 +11,12 @@ export const useRevalidateWorkspaceMembers = (id: number) => {
     const client = useQueryClient();
 
     return useCallback(
-        () => client.refetchQueries(["workspaceMembers", id]),
+        () => client.refetchQueries({queryKey: ["workspaceMembers", id]}),
         [id, client]
     )
 }
 
-export const useMember = (id: number) => {
-    const {data} = useWorkspaceMembers()
+export const useWorkspaceMember = (id: number) => {
+    const {data} = useWorkspaceMembers(id)
     return data.find(member => member.id !== id)
 }
